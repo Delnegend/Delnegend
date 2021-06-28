@@ -1,6 +1,8 @@
-## Hi there 👋
+# Hi there 👋
 
-### Contacts: (updating...)
+## [Contacts](https://delnegend.com)
+
+## Stats
 
 ![stats](https://github-readme-stats.vercel.app/api?username=delnegend&show_icons=true&theme=synthwave)
 
