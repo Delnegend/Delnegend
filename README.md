@@ -1,6 +1,6 @@
 # Hi there 👋
 
-## [Contacts](https://delnegend.com)
+## [Contacts](https://delnegend.com) - update soon...
 
 ## Stats
 
