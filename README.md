@@ -1,6 +1,8 @@
-# Hi there 👋
+## Hi there 👋
 
-## [Contacts](https://delnegend.com) - update soon...
+## Contacts
+- Email: [contact@delnegend.com](sendto:contact@delnegend.com)
+- Messenger: [m.me/delnegend](https://m.me/delnegend)
 
 ## Stats
 
