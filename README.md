@@ -10,8 +10,10 @@ I solve my problems
 [social-2-telego • Go](https://github.com/Delnegend/social-2-telego) |
 [Liminova/yomuyume • Rust](https://github.com/Liminova/yomuyume)
 
-[gallery-preprocessor-py • Python](https://github.com/Delnegend/gallery-preprocessor-py) |
-[towd • Go](https://github.com/Delnegend/towd)
+[gallery-preprocessor-py • Python](https://github.com/Delnegend/gallery-preprocessor-py)
+
+[towd • Go](https://github.com/Delnegend/towd) |
+[avtxtr • Go](https://github.com/Delnegend/avtxtr)
 
 ## Archived
 
