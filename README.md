@@ -13,7 +13,9 @@ I solve my problems
 [gallery-preprocessor-py • Python](https://github.com/Delnegend/gallery-preprocessor-py)
 
 [towd • Go](https://github.com/Delnegend/towd) |
-[avtxtr • Go](https://github.com/Delnegend/avtxtr)
+[avtxtr • Go](https://github.com/Delnegend/avtxtr) |
+[artistdb-rs](https://github.com/Delnegend/artistdb-rs) |
+[artistdb-go](https://github.com/Delnegend/artistdb-go)
 
 ## Archived
 
