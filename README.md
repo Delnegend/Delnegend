@@ -14,13 +14,13 @@ I solve my problems
 
 [towd • Go](https://github.com/Delnegend/towd) |
 [avtxtr • Go](https://github.com/Delnegend/avtxtr) |
-[artistdb-rs](https://github.com/Delnegend/artistdb-rs) |
 [artistdb-go](https://github.com/Delnegend/artistdb-go)
 
 ## Archived
 
 [Liminova/covid-19-stats • Kotlin, Go](https://github.com/Liminova/MobDevProj-Covid)
 
+[artistdb-rs](https://github.com/Delnegend/artistdb-rs) |
 [social-2-telegram • Python](https://github.com/Delnegend/social-2-telegram)
 
 [Liminova/human-resource-manager • Python](https://github.com/Liminova/human-resource-manager)
