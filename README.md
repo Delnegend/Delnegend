@@ -34,6 +34,9 @@ I solve my problems
 [moveme • Go](https://github.com/Delnegend/moveme) |
 [scripts • Python](https://github.com/Delnegend/scripts)
 
+[cf-ddns • Go](https://github.com/Delnegend/cf-ddns) |
+[ffpreset • Go](https://github.com/Delnegend/ffpreset)
+
 [cemail-i • Rust](https://github.com/Delnegend/cemail-i) |
 [ffmpeg-progressbar • Go](https://github.com/Delnegend/ffmpeg-progressbar)
 
