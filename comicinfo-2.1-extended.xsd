@@ -105,7 +105,6 @@
         <xs:attribute default="-1" name="ImageWidth" type="xs:int"/>
         <xs:attribute default="-1" name="ImageHeight" type="xs:int"/>
 
-        <xs:attribute default="" name="ImagePath" type="xs:string"/>
         <xs:attribute default="" name="Description" type="xs:string"/>
     </xs:complexType>
     <xs:simpleType name="ComicPageType">
