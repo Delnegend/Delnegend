@@ -108,7 +108,7 @@
         <xs:attribute default="" name="ImagePath" type="xs:string"/>
         <xs:attribute default="" name="Description" type="xs:string"/>
         <xs:attribute default="" name="Blurhash" type="xs:string"/>
-        <xs:attribute default="" name="ModifiedDateWhenEncodeBlurhash" type="xs:string"/>
+        <xs:attribute default="" name="ModifiedDateAtEncode" type="xs:string"/>
     </xs:complexType>
     <xs:simpleType name="ComicPageType">
         <xs:list>
