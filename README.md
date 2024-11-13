@@ -1,11 +1,8 @@
 <samp>
   <div align=center>🤞 りょういきてんかい<br>
     ∞ data management softwares</div>
-</samp>
 
-<hr>
-
-<div style="display: flex; flex-direction: row;">
+---
 
 ||languages*|
 |---|---|
@@ -16,8 +13,6 @@
 |---|---|
 |🌐|nuxt/vue · react + tanstack|
 |📱|react native · jetpack compose|
-
-</div>
 
 *_but not limited to_
 
