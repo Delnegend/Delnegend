@@ -17,7 +17,7 @@
 *_but not limited to_
 
 ### life has meaning
-- co-founder of [liminova](https://github.com/Liminova/)
+- co-founder of [liminova](https://liminova.github.io/)
 - working on [yomuyume](https://github.com/Liminova/yomuyume), a self-hosted comic server, written in Rust
 
 ### skills
