@@ -1,4 +1,5 @@
 <samp>
+
 <div align=center>🤞 りょういきてんかい<br>
 ∞ data management softwares</div>
 
