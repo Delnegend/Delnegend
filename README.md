@@ -1,7 +1,4 @@
-<samp>
-
-<div align=center>🤞 りょういきてんかい<br>
-∞ data management softwares</div>
+<samp><div align=center>🤞 りょういきてんかい<br>∞ data management softwares</div>
 
 ---
 
@@ -48,6 +45,4 @@
 - have a job
 - machine learning
 
-</samp>
-
-<div align="right"><img src="./sticker.webp" width="100px"></div>
+<div align="right"><img src="./sticker.webp" width="100px"></div></samp>
