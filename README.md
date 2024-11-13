@@ -40,7 +40,7 @@
 - longterm lossless images -> [`jpegxl`](https://jpegxl.info/)
 - lossy images -> `avif`\
   [_who the f*** at the chromium project please bring back `jpegxl` support_](https://www.techspot.com/news/98355-google-deprecating-jpeg-xl-own-predatory-interests-fsf.html)
-- videos -> `av1` for efficiency || `x264` for compatibility
+- videos -> `av1` for efficiency, `x264` for compatibility
 - my deep graditude to [`videolan`](https://www.videolan.org/), [`ffmpeg`](https://www.ffmpeg.org/), many more developers and their oss, especially in the media-domain
 
 ### plans
