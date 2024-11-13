@@ -1,6 +1,11 @@
-<samp><div align=center>🤞 りょういきてんかい<br>∞ data management softwares</div>
+<samp>
+  <div align=center>🤞 りょういきてんかい<br>
+    ∞ data management softwares</div>
+</samp>
 
----
+<hr>
+
+<div style="display: flex; flex-direction: row;">
 
 ||languages*|
 |---|---|
@@ -11,6 +16,8 @@
 |---|---|
 |🌐|nuxt/vue · react + tanstack|
 |📱|react native · jetpack compose|
+
+</div>
 
 *_but not limited to_
 
@@ -45,4 +52,4 @@
 - have a job
 - machine learning
 
-<div align="right"><img src="./sticker.webp" width="100px"></div></samp>
+<div align="right"><img src="./sticker.webp" width="100px"></div>
