@@ -1,6 +1,5 @@
 <samp>
-  <div align=center>りょういきてんかい<br>
-    I make software and (try not to) break stuffs</div>
+  <div align=center>I create software and (try not to) break stuffs</div>
 
 ---
 
