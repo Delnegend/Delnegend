@@ -1,6 +1,6 @@
 <samp>
-  <div align=center>🤞 りょういきてんかい<br>
-    ∞ data management softwares</div>
+  <div align=center>りょういきてんかい<br>
+    I make software and (try not to) break stuffs</div>
 
 ---
 
@@ -11,12 +11,12 @@
 
 || frameworks*|
 |---|---|
-|🌐|nuxt/vue · react + tanstack|
-|📱|react native · jetpack compose|
+|web|nuxt/vue · react · react native|
+|mobile|react native · progressive web app|
 
 *_but not limited to_
 
-## life has meaning
+## what I'm doing
 - co-founder of [liminova](https://liminova.github.io/)
 - working on [yomuyume](https://github.com/Liminova/yomuyume), a self-hosted comic server, written in Rust
 
