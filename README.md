@@ -12,7 +12,7 @@
 - co-founder of [liminova](https://liminova.net/)
 
 ## maintaining projects
-### [yomuyume] (https://github.com/Liminova/yomuyume)
+### [yomuyume](https://github.com/Liminova/yomuyume)
 
 a self-hosted comic server
 
