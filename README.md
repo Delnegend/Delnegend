@@ -3,48 +3,35 @@
 
 ---
 
-||languages*|
-|---|---|
-|🥇|Golang · Rust · TS/JS · Python|
-|🥈|C# · SQL · Kotlin|
+![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/languages.svg#gh-dark-mode-only)
+![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/languages.svg#gh-light-mode-only)
+![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/overview.svg#gh-dark-mode-only)
+![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/overview.svg#gh-light-mode-only)
 
-|| frameworks*|
-|---|---|
-|web|nuxt/vue · react · react native|
-|mobile|react native · progressive web app|
+## title
+- co-founder of [liminova](https://liminova.net/)
 
-*_but not limited to_
+## maintaining projects
+### [yomuyume] (https://github.com/Liminova/yomuyume)
 
-## what I'm doing
-- co-founder of [liminova](https://liminova.github.io/)
-- working on [yomuyume](https://github.com/Liminova/yomuyume), a self-hosted comic server, written in Rust
+a self-hosted comic server
 
-## skills
-- networking\
-  _enough to setup openwrt routers and access points\
-  for my house with proper firewalls & network isolation_
+`rust` `typescript` `nuxt` `vue` `axum` `postgresql` `comicinfo.xml` `jpeg-xl` `blurhash` `pwa` `web-worker`
 
-- server addiction\
-  _homelab/home server running... self-hosted software_
+### [artefact](https://artefact.delnegend.com)
 
-- linux (no I don't use arch)\
-  _fedora on wsl2, debian on my home server_
+removes jpeg artifacts
 
-- docker/podman
-  _develop in devcontainer & deploy in containers ftw_
+`rust` `typescript` `nuxt` `vue` `web-worker` `pwa` `simd` `jpeg`
 
-- for some untold reasons I can work with photoshop and premiere pro
+### [gallery-preprocessor-go](https://github.com/Delnegend/gallery-preprocessor-go)
 
-## bullshitery
-- longterm lossless images -> [`jpegxl`](https://jpegxl.info/)
-- lossy images -> `avif`\
-  [_who the f*** at the chromium project please bring back `jpegxl` support_](https://www.techspot.com/news/98355-google-deprecating-jpeg-xl-own-predatory-interests-fsf.html)
-- videos -> `av1` for efficiency, `x264` for compatibility
-- my deep gratitude to [`handbrake`](https://handbrake.fr/), [`videolan`](https://www.videolan.org/), [`ffmpeg`](https://www.ffmpeg.org/), many more developers and their oss, especially in the media-domain
+a small window to drag-and-drop images on to perform a bunch of small tasks on them
 
-## plans
-- have a job
-- machine learning
+`go` `wails` `vue`
+
+## archived projects
+a lot, see [my archived repositories](https://github.com/Delnegend?tab=repositories&q=&type=archived&language=&sort=)
 
 ## socials & contacts
 - github: [github.com/Delnegend](https://github.com/Delnegend)
