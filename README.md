@@ -30,6 +30,12 @@ a small window to drag-and-drop images on to perform a bunch of small tasks on t
 
 `go` `wails` `vue`
 
+### [taxer](https://github.com/Liminova/taxer)
+
+a Discord bot, mainly use for music
+
+`rust` `poise` `discord` `yt-dlp`
+
 ## archived projects
 a lot, see [my archived repositories](https://github.com/Delnegend?tab=repositories&q=&type=archived&language=&sort=)
 
