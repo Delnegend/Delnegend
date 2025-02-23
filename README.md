@@ -4,10 +4,8 @@
 ---
 
 <div align="center">
-
-![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/overview.svg)
-![](https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/languages.svg)
-
+<img src="https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/overview.svg">
+<img src="https://raw.githubusercontent.com/Delnegend/github-stats/master/generated/languages.svg">
 </div>
 
 ## title
