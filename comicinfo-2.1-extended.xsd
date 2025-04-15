@@ -55,7 +55,7 @@
             <xs:element minOccurs="0" maxOccurs="1" default="" name="Review" type="xs:string" />
             <xs:element minOccurs="0" maxOccurs="1" default="" name="GTIN" type="xs:string" />
 
-            <xs:element minOccurs="0" maxOccurs="1" name="Sources" type="ArrayOfSource" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Sources" type="SourcesType" />
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="YesNo">
@@ -139,14 +139,10 @@
             </xs:simpleType>
         </xs:list>
     </xs:simpleType>
-    <xs:complexType name="ArrayOfSource">
+    <xs:complexType name="SourcesType">
         <xs:sequence>
-            <xs:element minOccurs="0" maxOccurs="unbounded" name="Source" nillable="true"
-                type="Source" />
+            <xs:element minOccurs="1" maxOccurs="1" name="Primary" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Backup" type="xs:string" />
         </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="Source">
-        <xs:attribute default="" name="URL" type="xs:string" />
-        <xs:attribute default="" name="Name" type="xs:string" />
     </xs:complexType>
 </xs:schema>
