@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[delnegend.com](https://delnegend.com) . [kien@delnegend.com](mailto:kien@delnegend.com)
+[delnegend.com](https://delnegend.com) . [kien@delnegend.com](mailto:kien@delnegend.com) . [resume](https://delnegend.com/resume.pdf)
 
 <hr />
 
