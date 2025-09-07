@@ -5,15 +5,8 @@
             <xs:sequence>
                 <xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1" />
                 <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1" />
-                <xs:element name="Cover" type="CoverType" minOccurs="0" maxOccurs="1" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="CoverType">
-        <xs:attribute name="Path" type="xs:string" use="required" />
-        <xs:attribute name="Blurhash" type="xs:string" use="required" />
-        <xs:attribute name="Width" type="xs:int" use="required" />
-        <xs:attribute name="Height" type="xs:int" use="required" />
-        <xs:attribute name="ModifiedDateAtEncode" type="xs:string" use="required" />
-    </xs:complexType>
 </xs:schema>
+
