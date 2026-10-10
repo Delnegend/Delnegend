@@ -13,12 +13,12 @@
 ## Maintaining projects
 
 <!-- maintaining-projects:start -->
-| Project | Version | CI |
-| --- | --- | --- |
-| [l4d2-server-container](https://github.com/Delnegend/l4d2-server-container) | [`v1.4.0`](https://github.com/Delnegend/l4d2-server-container/releases/tag/v1.4.0) · 5 days ago | ✅ |
-| [mikrotik-mcp-server](https://github.com/Delnegend/mikrotik-mcp-server) | [`v0.3.3`](https://github.com/Delnegend/mikrotik-mcp-server/releases/tag/v0.3.3) · 6 days ago | ✅ |
-| [headless-brave](https://github.com/Delnegend/headless-brave) | [`v0.2.2`](https://github.com/Delnegend/headless-brave/releases/tag/v0.2.2) · 6 days ago | ✅ |
-| [artefact](https://github.com/Delnegend/artefact) | [`v1.0.13`](https://github.com/Delnegend/artefact/releases/tag/v1.0.13) · 6 days ago | ✅ |
-| [segotep-digital](https://github.com/Delnegend/segotep-digital) | [`v1.0.0`](https://github.com/Delnegend/segotep-digital/releases/tag/v1.0.0) · 42 days ago | ✅ |
-| [freshdesk](https://github.com/Delnegend/freshdesk) | — | ✅ |
+| Project | Description | Version | CI |
+| --- | --- | --- | --- |
+| [l4d2-server-container](https://github.com/Delnegend/l4d2-server-container) | Production-ready Left 4 Dead 2 Linux dedicated server container with 8-player co-op support and instant boot times. | [`v1.4.0`](https://github.com/Delnegend/l4d2-server-container/releases/tag/v1.4.0) · 6 days ago | [✅](https://github.com/Delnegend/l4d2-server-container/actions/runs/38046361949) |
+| [mikrotik-mcp-server](https://github.com/Delnegend/mikrotik-mcp-server) | MCP server for MikroTik RouterOS — fleet management, safe mode, and a full-config backup/restore CLI | [`v0.3.3`](https://github.com/Delnegend/mikrotik-mcp-server/releases/tag/v0.3.3) · 6 days ago | [✅](https://github.com/Delnegend/mikrotik-mcp-server/actions/runs/38037060175) |
+| [headless-brave](https://github.com/Delnegend/headless-brave) | Headless Brave with Chrome DevTools Protocol pre-configured | [`v0.2.2`](https://github.com/Delnegend/headless-brave/releases/tag/v0.2.2) · 6 days ago | [✅](https://github.com/Delnegend/headless-brave/actions/runs/38035562688) |
+| [artefact](https://github.com/Delnegend/artefact) | Remove JPEG compression artefacts — Rust rewrite of jpeg2png (native CLI + WebGPU/WASM in the browser) | [`v1.0.13`](https://github.com/Delnegend/artefact/releases/tag/v1.0.13) · 6 days ago | [✅](https://github.com/Delnegend/artefact/actions/runs/38034739517) |
+| [segotep-digital](https://github.com/Delnegend/segotep-digital) | Unofficial Segotep Digital software for Linux and Windows | [`v1.0.0`](https://github.com/Delnegend/segotep-digital/releases/tag/v1.0.0) · 42 days ago | [✅](https://github.com/Delnegend/segotep-digital/actions/runs/38040019054) |
+| [freshdesk](https://github.com/Delnegend/freshdesk) | — | — | [✅](https://github.com/Delnegend/freshdesk/actions/runs/38042765922) |
 <!-- maintaining-projects:end -->
