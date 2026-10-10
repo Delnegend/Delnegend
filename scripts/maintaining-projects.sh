@@ -20,6 +20,7 @@ END_MARKER="<!-- maintaining-projects:end -->"
 # The projects the table lists. Add a repo name to include it.
 PROJECTS=(
   artefact
+  freshdesk
   headless-brave
   l4d2-linux-server
   mikrotik-mcp-server
@@ -38,14 +39,22 @@ collect() {
   branch="$(gh api "repos/$OWNER/$repo" --jq .default_branch 2>/dev/null || echo main)"
 
   # Newest release first; fall back to the newest tag and its commit date, so a
-  # project that tags without publishing a release still gets a version.
-  version="$(gh api "repos/$OWNER/$repo/releases/latest" --jq .tag_name 2>/dev/null || true)"
-  date="$(gh api "repos/$OWNER/$repo/releases/latest" --jq .published_at 2>/dev/null || true)"
-  if [ -z "$version" ]; then
+  # project that tags without publishing a release still gets a version. A repo
+  # with no release makes `gh api` exit non-zero and print the 404 body, and an
+  # empty tag list answers "null" — both mean "nothing to report", not a version.
+  version=""
+  date=""
+  if release="$(gh api "repos/$OWNER/$repo/releases/latest" --jq '.tag_name' 2>/dev/null)"; then
+    version="$release"
+    date="$(gh api "repos/$OWNER/$repo/releases/latest" --jq '.published_at' 2>/dev/null || true)"
+  fi
+  if [ -z "$version" ] || [ "$version" = "null" ]; then
     version="$(gh api "repos/$OWNER/$repo/tags" --jq '.[0].name' 2>/dev/null || true)"
-    if [ -n "$version" ]; then
-      date="$(gh api "repos/$OWNER/$repo/commits/$version" --jq .commit.committer.date 2>/dev/null || true)"
-    fi
+    case "$version" in
+      "" | null) version=""; date="" ;;
+      *) date="$(gh api "repos/$OWNER/$repo/commits/$version" \
+           --jq '.commit.committer.date' 2>/dev/null || true)" ;;
+    esac
   fi
 
   # The newest completed run of the workflow called "CI" — a column headed CI
@@ -56,12 +65,14 @@ collect() {
     --jq '([.[] | select(.workflowName == "CI")][0] // .[0]).conclusion' 2>/dev/null || true)"
 
   case "$conclusion" in
-    success) ci="✅" ;;
-    "")      ci="❔" ;;
-    *)       ci="❌" ;;
+    success)  ci="✅" ;;
+    "" | null) ci="❔" ;;
+    *)        ci="❌" ;;
   esac
 
-  printf '%s\t%s\t%s\n' "${version:-—}" "${date:-}" "$ci"
+  # Unit separator, not a tab: bash's `read` collapses runs of whitespace
+  # delimiters, so an empty date would shift the CI verdict into its place.
+  printf '%s\x1f%s\x1f%s\n' "${version:-—}" "$date" "$ci"
 }
 
 # Parallel: one subshell per project, then wait for all of them.
@@ -88,7 +99,7 @@ ago() {
 
 {
   for repo in "${PROJECTS[@]}"; do
-    IFS=$'\t' read -r version date ci <"$workdir/$repo"
+    IFS=$'\x1f' read -r version date ci <"$workdir/$repo"
     if [ "$version" = "—" ]; then
       cell="—"
     else
@@ -96,9 +107,10 @@ ago() {
       when="$(ago "$date")"
       [ -n "$when" ] && cell="$cell · $when"
     fi
-    # The release date is the sort key; the row is the rest of the line.
+    # The release date is the sort key; the row is the rest of the line. A
+    # project with no release yet sorts to the bottom rather than the top.
     printf '%s\t| [%s](https://github.com/%s/%s) | %s | %s |\n' \
-      "$date" "$repo" "$OWNER" "$repo" "$cell" "$ci"
+      "${date:-0000-00-00}" "$repo" "$OWNER" "$repo" "$cell" "$ci"
   done
 } | sort -r | cut -f2- >"$workdir/rows"
 

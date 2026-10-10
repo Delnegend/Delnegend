@@ -20,4 +20,5 @@
 | [headless-brave](https://github.com/Delnegend/headless-brave) | [`v0.2.2`](https://github.com/Delnegend/headless-brave/releases/tag/v0.2.2) · 6 days ago | ✅ |
 | [artefact](https://github.com/Delnegend/artefact) | [`v1.0.13`](https://github.com/Delnegend/artefact/releases/tag/v1.0.13) · 6 days ago | ✅ |
 | [segotep-digital](https://github.com/Delnegend/segotep-digital) | [`v1.0.0`](https://github.com/Delnegend/segotep-digital/releases/tag/v1.0.0) · 42 days ago | ✅ |
+| [freshdesk](https://github.com/Delnegend/freshdesk) | — | ✅ |
 <!-- maintaining-projects:end -->
