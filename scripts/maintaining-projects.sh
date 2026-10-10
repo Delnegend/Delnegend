@@ -22,7 +22,7 @@ PROJECTS=(
   artefact
   freshdesk
   headless-brave
-  l4d2-linux-server
+  l4d2-server-container
   mikrotik-mcp-server
   segotep-digital
 )
