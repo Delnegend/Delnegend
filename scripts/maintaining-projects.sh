@@ -24,7 +24,6 @@ PROJECTS=(
   l4d2-linux-server
   mikrotik-mcp-server
   segotep-digital
-  gallery-preprocessor
 )
 
 workdir="$(mktemp -d)"
@@ -49,10 +48,12 @@ collect() {
     fi
   fi
 
-  # The newest completed run on the default branch. In-flight runs are skipped
-  # so a running CI shows its last verdict instead of an interim cross.
+  # The newest completed run of the workflow called "CI" — a column headed CI
+  # should not report the status of a release or cleanup job. Repos that name
+  # their gate something else fall back to their newest completed run.
   conclusion="$(gh run list --repo "$OWNER/$repo" --branch "$branch" \
-    --limit 1 --status completed --json conclusion --jq '.[0].conclusion' 2>/dev/null || true)"
+    --limit 30 --status completed --json workflowName,conclusion \
+    --jq '([.[] | select(.workflowName == "CI")][0] // .[0]).conclusion' 2>/dev/null || true)"
 
   case "$conclusion" in
     success) ci="✅" ;;
