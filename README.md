@@ -9,3 +9,8 @@
 <img src="https://raw.githubusercontent.com/Delnegend/github-stats/generated/languages.svg#gh-light-mode-only">
 </div>
 </samp>
+
+## Maintaining projects
+
+<!-- maintaining-projects:start -->
+<!-- maintaining-projects:end -->
