@@ -107,10 +107,11 @@ ago() {
   local date="$1" days
   [ -n "$date" ] || { echo ""; return; }
   days=$(( ( $(date -u +%s) - $(date -u -d "$date" +%s) ) / 86400 ))
+  # "today" stays spelled out: it is the common case for the projects that
+  # release often, and "0d ago" reads worse than it sounds.
   case "$days" in
     0) echo "today" ;;
-    1) echo "1 day ago" ;;
-    *) echo "$days days ago" ;;
+    *) echo "${days}d ago" ;;
   esac
 }
 
