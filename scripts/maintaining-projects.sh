@@ -26,6 +26,7 @@ PROJECTS=(
   headless-brave
   l4d2-server-container
   mikrotik-mcp-server
+  rsRPC
   segotep-digital
   terraria-server-container
 )
