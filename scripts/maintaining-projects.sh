@@ -35,10 +35,19 @@ workdir="$(mktemp -d)"
 trap 'rm -rf "$workdir"' EXIT
 
 # ---------------------------------------------------------------------------
-# One project -> one line: version <TAB> release date <TAB> CI verdict
+# One project -> one line: version, release date, description, and a verdict
+# plus URL for each of the CI and Release columns
 # ---------------------------------------------------------------------------
+verdict() {
+  case "$1" in
+    success)   echo "✅" ;;
+    "" | null) echo "❔" ;;
+    *)         echo "❌" ;;
+  esac
+}
+
 collect() {
-  local repo="$1" branch description version date result conclusion url ci
+  local repo="$1" branch description version date result conclusion url ci rel rel_url rel_conclusion
 
   branch="$(gh api "repos/$OWNER/$repo" --jq .default_branch 2>/dev/null || echo main)"
   description="$(gh api "repos/$OWNER/$repo" --jq '.description // ""' 2>/dev/null || true)"
@@ -63,23 +72,24 @@ collect() {
     esac
   fi
 
-  # The newest completed run of the workflow called "CI" — a column headed CI
-  # should not report the status of a release or cleanup job. Repos that name
-  # their gate something else fall back to their newest completed run.
+  # Both verdicts come from one query. A column headed CI should not report
+  # the status of a release or cleanup job, so it prefers the workflow named
+  # "CI" and falls back to the newest completed run when a repo names its gate
+  # something else. Release matches the release workflow and reports nothing
+  # rather than substituting an unrelated run under a Release heading.
   result="$(gh run list --repo "$OWNER/$repo" --branch "$branch" \
     --limit 30 --status completed --json workflowName,conclusion,url \
-    --jq '([.[] | select(.workflowName == "CI")][0] // .[0]) | "\(.conclusion // "") \(.url // "")"' 2>/dev/null || true)"
-  conclusion="${result%% *}"
-  url="${result#* }"
-  case "$conclusion" in
-    success)  ci="✅" ;;
-    "" | null) ci="❔" ;;
-    *)        ci="❌" ;;
-  esac
+    --jq '([.[] | select(.workflowName == "CI")][0] // .[0] // {}) as $ci
+           | ([.[] | select(.workflowName | startswith("Release"))][0] // {}) as $rel
+           | "\($ci.conclusion // "") \($ci.url // "") \($rel.conclusion // "") \($rel.url // "")"' 2>/dev/null || true)"
+  read -r conclusion url rel_conclusion rel_url <<<"$result"
+  ci="$(verdict "$conclusion")"
+  rel="$(verdict "$rel_conclusion")"
 
   # Unit separator, not a tab: bash's `read` collapses runs of whitespace
-  # delimiters, so an empty date would shift the CI verdict into its place.
-  printf '%s\x1f%s\x1f%s\x1f%s\x1f%s\n' "${version:-—}" "$date" "$description" "$ci" "$url"
+  # delimiters, so an empty date would shift a verdict into its place.
+  printf '%s\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s\n' \
+    "${version:-—}" "$date" "$description" "$ci" "$url" "$rel" "$rel_url"
 }
 
 # Parallel: one subshell per project, then wait for all of them.
@@ -106,7 +116,7 @@ ago() {
 
 {
   for repo in "${PROJECTS[@]}"; do
-    IFS=$'\x1f' read -r version date description ci url <"$workdir/$repo"
+    IFS=$'\x1f' read -r version date description ci url rel rel_url <"$workdir/$repo"
     if [ -z "$description" ]; then
       description_cell="—"
     else
@@ -119,21 +129,26 @@ ago() {
       when="$(ago "$date")"
       [ -n "$when" ] && cell="$cell · $when"
     fi
-    if [ -n "$ci" ] && [ -n "$url" ]; then
+    if [ -n "$url" ]; then
       ci_cell="[$ci]($url)"
     else
       ci_cell="$ci"
     fi
+    if [ -n "$rel_url" ]; then
+      rel_cell="[$rel]($rel_url)"
+    else
+      rel_cell="$rel"
+    fi
     # The release date is the sort key; the row is the rest of the line. A
     # project with no release yet sorts to the bottom rather than the top.
-    printf '%s\t| [%s](https://github.com/%s/%s) | %s | %s | %s |\n' \
-      "${date:-0000-00-00}" "$repo" "$OWNER" "$repo" "$description_cell" "$cell" "$ci_cell"
+    printf '%s\t| [%s](https://github.com/%s/%s) | %s | %s | %s | %s |\n' \
+      "${date:-0000-00-00}" "$repo" "$OWNER" "$repo" "$description_cell" "$cell" "$ci_cell" "$rel_cell"
   done
 } | sort -r | cut -f2- >"$workdir/rows"
 
 {
-  echo "| Project | Description | Version | CI |"
-  echo "| --- | --- | --- | --- |"
+  echo "| Project | Description | Version | CI | Release |"
+  echo "| --- | --- | --- | --- | --- |"
   cat "$workdir/rows"
 } >"$workdir/table"
 
@@ -147,7 +162,7 @@ awk -v start="$START_MARKER" -v end="$END_MARKER" -v table="$workdir/table" '
 # The splice only works if the markers are still in the file. Without this the
 # script would exit 0 having changed nothing, and the table would quietly stop
 # being refreshed.
-if ! grep -q '^| Project | Description | Version | CI |$' "$workdir/README"; then
+if ! grep -q '^| Project | Description | Version | CI | Release |$' "$workdir/README"; then
   echo "error: $START_MARKER / $END_MARKER not found in $README" >&2
   exit 1
 fi
