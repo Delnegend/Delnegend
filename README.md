@@ -14,7 +14,7 @@
 
 <!-- maintaining-projects:start -->
 | Project | Description | Version | CI | Release |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | :---: |
 | [rsRPC](https://github.com/Delnegend/rsRPC) | Rust implementation of the Discord RPC server | [`v0.28.1`](https://github.com/Delnegend/rsRPC/releases/tag/v0.28.1) · today | [✅](https://github.com/Delnegend/rsRPC/actions/runs/39116879690) | [✅](https://github.com/Delnegend/rsRPC/actions/runs/39113876317) |
 | [differ](https://github.com/Delnegend/differ) | Diff sequences of near-identical images into a base plus tiny difference files | [`v1.1.0`](https://github.com/Delnegend/differ/releases/tag/v1.1.0) · today | [✅](https://github.com/Delnegend/differ/actions/runs/39116842965) | [✅](https://github.com/Delnegend/differ/actions/runs/39113860033) |
 | [terraria-server-container](https://github.com/Delnegend/terraria-server-container) | Terraria dedicated server in a container — world files and config mounted from the host | [`v1.4.4`](https://github.com/Delnegend/terraria-server-container/releases/tag/v1.4.4) · today | [✅](https://github.com/Delnegend/terraria-server-container/actions/runs/39116867999) | [✅](https://github.com/Delnegend/terraria-server-container/actions/runs/39113881630) |

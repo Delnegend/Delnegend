@@ -148,7 +148,9 @@ ago() {
 
 {
   echo "| Project | Description | Version | CI | Release |"
-  echo "| --- | --- | --- | --- | --- |"
+  # :---: centres the column. A single emoji is narrow enough that a left
+  # aligned Release reads as if it belonged to the CI column beside it.
+  echo "| --- | --- | --- | --- | :---: |"
   cat "$workdir/rows"
 } >"$workdir/table"
 
