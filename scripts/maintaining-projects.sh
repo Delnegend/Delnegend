@@ -127,7 +127,9 @@ ago() {
     else
       cell="[\`$version\`](https://github.com/$OWNER/$repo/releases/tag/$version)"
       when="$(ago "$date")"
-      [ -n "$when" ] && cell="$cell · $when"
+      # A table row is one line, so the version and its age need an explicit
+      # break. "· " read as a run-on across to the columns either side.
+      [ -n "$when" ] && cell="$cell<br>$when"
     fi
     if [ -n "$url" ]; then
       ci_cell="[$ci]($url)"
@@ -150,7 +152,7 @@ ago() {
   echo "| Project | Description | Version | CI | Release |"
   # :---: centres the column. A single emoji is narrow enough that a left
   # aligned Release reads as if it belonged to the CI column beside it.
-  echo "| --- | --- | --- | --- | :---: |"
+  echo "| --- | --- | :---: | --- | :---: |"
   cat "$workdir/rows"
 } >"$workdir/table"
 
