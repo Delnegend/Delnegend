@@ -29,6 +29,7 @@ PROJECTS=(
   rsRPC
   segotep-digital
   terraria-server-container
+  zero-g
 )
 
 workdir="$(mktemp -d)"
