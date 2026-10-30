@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# Regenerate the "Maintaining projects" table in README.md.
+# Regenerate the "Maintaining projects" tables in README.md.
 #
-# One row per project: the project name as a link, its newest released version
-# with how long ago that was, and the newest completed workflow run on the
-# default branch. Runs hourly from .github/workflows/update-projects.yml; run it
-# by hand the same way:
+# One row per project, grouped into apps, services, and libraries: the project
+# name as a link, its newest released version with how long ago that was, and
+# the newest completed workflow run on the default branch. Runs hourly from
+# .github/workflows/update-projects.yml; run it by hand the same way:
 #
 #   ./scripts/maintaining-projects.sh
 #
@@ -17,11 +17,14 @@ README="${README:-README.md}"
 START_MARKER="<!-- maintaining-projects:start -->"
 END_MARKER="<!-- maintaining-projects:end -->"
 
-# The projects the table lists. Add a repo name to include it.
-PROJECTS=(
+# The projects the tables list, grouped by what they are. Add a repo name to
+# the group it belongs to.
+APPS=(
   artefact
   differ
   freshdesk
+)
+SERVICES=(
   hath-server-container
   headless-brave
   l4d2-server-container
@@ -31,6 +34,11 @@ PROJECTS=(
   terraria-server-container
   zero-g
 )
+LIBRARIES=(
+  axum-auth-gate
+)
+
+PROJECTS=("${APPS[@]}" "${SERVICES[@]}" "${LIBRARIES[@]}")
 
 workdir="$(mktemp -d)"
 trap 'rm -rf "$workdir"' EXIT
@@ -102,7 +110,7 @@ done
 for pid in "${pids[@]}"; do wait "$pid"; done
 
 # ---------------------------------------------------------------------------
-# Render the table, newest release first
+# Render one table per group, newest release first
 # ---------------------------------------------------------------------------
 ago() {
   local date="$1" days
@@ -116,46 +124,61 @@ ago() {
   esac
 }
 
-{
-  for repo in "${PROJECTS[@]}"; do
-    IFS=$'\x1f' read -r version date description ci url rel rel_url <"$workdir/$repo"
-    if [ -z "$description" ]; then
-      description_cell="—"
-    else
-      description_cell="$description"
-    fi
-    if [ "$version" = "—" ]; then
-      cell="—"
-    else
-      cell="[\`$version\`](https://github.com/$OWNER/$repo/releases/tag/$version)"
-      when="$(ago "$date")"
-      # A table row is one line, so the version and its age need an explicit
-      # break. "· " read as a run-on across to the columns either side.
-      [ -n "$when" ] && cell="$cell<br>$when"
-    fi
-    if [ -n "$url" ]; then
-      ci_cell="[$ci]($url)"
-    else
-      ci_cell="$ci"
-    fi
-    if [ -n "$rel_url" ]; then
-      rel_cell="[$rel]($rel_url)"
-    else
-      rel_cell="$rel"
-    fi
-    # The release date is the sort key; the row is the rest of the line. A
-    # project with no release yet sorts to the bottom rather than the top.
-    printf '%s\t| [%s](https://github.com/%s/%s) | %s | %s | %s | %s |\n' \
-      "${date:-0000-00-00}" "$repo" "$OWNER" "$repo" "$description_cell" "$cell" "$ci_cell" "$rel_cell"
-  done
-} | sort -r | cut -f2- >"$workdir/rows"
+render_table() {
+  local title="$1"
+  shift
+  [ "$#" -gt 0 ] || return
+  local repo version date description ci url rel rel_url description_cell cell when ci_cell rel_cell rows
+  rows="$workdir/rows-$title"
 
-{
+  {
+    for repo in "$@"; do
+      IFS=$'\x1f' read -r version date description ci url rel rel_url <"$workdir/$repo"
+      if [ -z "$description" ]; then
+        description_cell="—"
+      else
+        description_cell="$description"
+      fi
+      if [ "$version" = "—" ]; then
+        cell="—"
+      else
+        cell="[\`$version\`](https://github.com/$OWNER/$repo/releases/tag/$version)"
+        when="$(ago "$date")"
+        # A table row is one line, so the version and its age need an explicit
+        # break. "· " read as a run-on across to the columns either side.
+        [ -n "$when" ] && cell="$cell<br>$when"
+      fi
+      if [ -n "$url" ]; then
+        ci_cell="[$ci]($url)"
+      else
+        ci_cell="$ci"
+      fi
+      if [ -n "$rel_url" ]; then
+        rel_cell="[$rel]($rel_url)"
+      else
+        rel_cell="$rel"
+      fi
+      # The release date is the sort key; the row is the rest of the line. A
+      # project with no release yet sorts to the bottom rather than the top.
+      printf '%s\t| [%s](https://github.com/%s/%s) | %s | %s | %s | %s |\n' \
+        "${date:-0000-00-00}" "$repo" "$OWNER" "$repo" "$description_cell" "$cell" "$ci_cell" "$rel_cell"
+    done
+  } | sort -r | cut -f2- >"$rows"
+
+  echo "### $title"
+  echo
   echo "| Project | Description | Version | CI | Release |"
   # :---: centres the column. A single emoji is narrow enough that a left
   # aligned Release reads as if it belonged to the CI column beside it.
   echo "| --- | --- | :---: | --- | :---: |"
-  cat "$workdir/rows"
+  cat "$rows"
+  echo
+}
+
+{
+  render_table "Apps" "${APPS[@]}"
+  render_table "Services" "${SERVICES[@]}"
+  render_table "Libraries" "${LIBRARIES[@]}"
 } >"$workdir/table"
 
 # Splice it between the markers, replacing whatever was there before.
@@ -166,9 +189,9 @@ awk -v start="$START_MARKER" -v end="$END_MARKER" -v table="$workdir/table" '
 ' "$README" >"$workdir/README"
 
 # The splice only works if the markers are still in the file. Without this the
-# script would exit 0 having changed nothing, and the table would quietly stop
+# script would exit 0 having changed nothing, and the tables would quietly stop
 # being refreshed.
-if ! grep -q '^| Project | Description | Version | CI | Release |$' "$workdir/README"; then
+if ! grep -qE '^### (Apps|Services|Libraries)$' "$workdir/README"; then
   echo "error: $START_MARKER / $END_MARKER not found in $README" >&2
   exit 1
 fi

@@ -1,6 +1,6 @@
-name: Update projects table
+name: Update projects tables
 
-# Refreshes the "Maintaining projects" table in README.md once an hour, so the
+# Refreshes the "Maintaining projects" tables in README.md once an hour, so the
 # relative dates and the CI verdicts stay current without anyone touching it.
 # The work is in scripts/maintaining-projects.sh; run that by hand to see the
 # same result locally.
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   update:
-    name: Refresh the table
+    name: Refresh the tables
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -35,8 +35,8 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add README.md
           if git diff --staged --quiet; then
-            echo "the table is already current"
+            echo "the tables are already current"
             exit 0
           fi
-          git commit -m "chore: refresh the maintaining-projects table"
+          git commit -m "chore: refresh the maintaining-projects tables"
           git push
