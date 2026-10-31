@@ -19,7 +19,7 @@ Building software I use.
 | --- | --- | :---: | --- | :---: |
 | [artefact](https://github.com/Delnegend/artefact) | Remove JPEG compression artefacts — Rust rewrite of jpeg2png (native CLI + WebGPU/WASM in the browser) | [`v1.0.16`](https://github.com/Delnegend/artefact/releases/tag/v1.0.16)<br>4d ago | [✅](https://github.com/Delnegend/artefact/actions/runs/40984330169) | [✅](https://github.com/Delnegend/artefact/actions/runs/40295832370) |
 | [differ](https://github.com/Delnegend/differ) | Diff sequences of near-identical images into a base plus tiny difference files | [`v1.1.2`](https://github.com/Delnegend/differ/releases/tag/v1.1.2)<br>4d ago | [✅](https://github.com/Delnegend/differ/actions/runs/40295747433) | [✅](https://github.com/Delnegend/differ/actions/runs/40295815073) |
-| [freshdesk](https://github.com/Delnegend/freshdesk) | Freshdesk API client and CLI in Rust — tickets, TOTP agent login, quarterly SLA reports | [`v0.2.1`](https://github.com/Delnegend/freshdesk/releases/tag/v0.2.1)<br>5d ago | [✅](https://github.com/Delnegend/freshdesk/actions/runs/40984330569) | [✅](https://github.com/Delnegend/freshdesk/actions/runs/40152971095) |
+| [freshdesk](https://github.com/Delnegend/freshdesk) | Freshdesk API client and CLI in Rust — tickets, TOTP agent login, quarterly SLA reports | [`v0.2.1`](https://github.com/Delnegend/freshdesk/releases/tag/v0.2.1)<br>6d ago | [✅](https://github.com/Delnegend/freshdesk/actions/runs/40984330569) | [✅](https://github.com/Delnegend/freshdesk/actions/runs/40152971095) |
 
 ### Services
 
