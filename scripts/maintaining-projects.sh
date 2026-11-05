@@ -66,7 +66,7 @@ collect() {
   # Newest release first; fall back to the newest tag and its commit date, so a
   # project that tags without publishing a release still gets a version. A repo
   # with no release makes `gh api` exit non-zero and print the 404 body, and an
-  # empty tag list answers "null" — both mean "nothing to report", not a version.
+  # empty tag list answers "null"; both mean "nothing to report", not a version.
   version=""
   date=""
   if release="$(gh api "repos/$OWNER/$repo/releases/latest" --jq '.tag_name' 2>/dev/null)"; then
@@ -99,7 +99,7 @@ collect() {
   # Unit separator, not a tab: bash's `read` collapses runs of whitespace
   # delimiters, so an empty date would shift a verdict into its place.
   printf '%s\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s\n' \
-    "${version:-—}" "$date" "$description" "$ci" "$url" "$rel" "$rel_url"
+    "${version:--}" "$date" "$description" "$ci" "$url" "$rel" "$rel_url"
 }
 
 # Parallel: one subshell per project, then wait for all of them.
@@ -136,12 +136,12 @@ render_table() {
     for repo in "$@"; do
       IFS=$'\x1f' read -r version date description ci url rel rel_url <"$workdir/$repo"
       if [ -z "$description" ]; then
-        description_cell="—"
+        description_cell="-"
       else
         description_cell="$description"
       fi
-      if [ "$version" = "—" ]; then
-        cell="—"
+      if [ "$version" = "-" ]; then
+        cell="-"
       else
         cell="[\`$version\`](https://github.com/$OWNER/$repo/releases/tag/$version)"
         when="$(ago "$date")"
