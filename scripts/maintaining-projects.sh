@@ -25,6 +25,7 @@ APPS=(
   freshdesk
 )
 SERVICES=(
+  dpi-proxy
   hath-server-container
   headless-brave
   l4d2-server-container
