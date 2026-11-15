@@ -15,7 +15,7 @@ END = "<!-- maintaining-projects:end -->"
 GROUPS = {
     "Apps": ["artefact", "differ", "freshdesk"],
     "Services": [
-        "dpi-proxy", "hath-server-container", "headless-brave",
+        "dpi-proxy", "hath-server-container",
         "l4d2-server-container", "mikrotik-mcp-server", "rsRPC",
         "segotep-digital", "terraria-server-container", "zero-g",
     ],
