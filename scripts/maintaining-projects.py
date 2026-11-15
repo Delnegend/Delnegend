@@ -23,6 +23,7 @@ GROUPS = {
 }
 QUERY = """query($owner: String!, $name: String!) {
   repository(owner: $owner, name: $name) {
+    primaryLanguage { name }
     issues(states: OPEN) { totalCount }
     pullRequests(states: OPEN) { totalCount }
   }
@@ -58,6 +59,7 @@ def collect(repo):
     return {
         "repo": repo, "description": details["description"] or "-",
         "version": version, "date": date or "", "extension": extension,
+        "language": counts["primaryLanguage"]["name"] if counts["primaryLanguage"] else None,
         "ci": conclusion("ci"), "release": conclusion("release"),
         "issues": counts["issues"]["totalCount"],
         "prs": counts["pullRequests"]["totalCount"],
@@ -78,6 +80,11 @@ def row(project):
     color = {"success": "005a9c", "unknown": "555555"}.get(project["release"], "a64000")
     image = f"https://img.shields.io/static/v1?label=&message={quote(project['version'], safe='')}&color={color}"
     badges = [f"[![Release {project['version']}: {project['release']}]({image})]({base}/actions/workflows/release.{extension})"]
+    if project["language"]:
+        language = project["language"]
+        logo = quote(language.lower().replace(" ", ""), safe="")
+        image = f"https://img.shields.io/static/v1?label=&message={quote(language, safe='')}&color=555555&logo={logo}"
+        badges.insert(0, f"[![{language}]({image})]({base})")
     if project["ci"] != "success":
         badges.append(status_badge("CI", project["ci"], f"{base}/actions/workflows/ci.{extension}", "CI"))
     if project["issues"]:
