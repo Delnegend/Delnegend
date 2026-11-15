@@ -1,9 +1,7 @@
 name: Update projects tables
 
-# Refreshes the "Maintaining projects" tables in README.md once an hour, so the
-# relative dates and the CI verdicts stay current without anyone touching it.
-# The work is in scripts/maintaining-projects.sh; run that by hand to see the
-# same result locally.
+# Refreshes project details and badge visibility once an hour.
+# Run scripts/maintaining-projects.py by hand to see the same result locally.
 on:
   schedule:
     - cron: '0 * * * *' # hourly, on the hour
@@ -11,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: update-projects
@@ -26,7 +25,7 @@ jobs:
       - name: Regenerate the table
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./scripts/maintaining-projects.sh
+        run: python3 scripts/maintaining-projects.py
 
       - name: Commit if it changed
         run: |
