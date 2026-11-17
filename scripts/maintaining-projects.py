@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 
@@ -78,8 +79,14 @@ def row(project):
     shields = f"https://img.shields.io/github"
     extension = project["extension"]
     color = {"success": "005a9c", "unknown": "555555"}.get(project["release"], "a64000")
-    image = f"https://img.shields.io/static/v1?label=&message={quote(project['version'], safe='')}&color={color}"
-    badges = [f"[![Release {project['version']}: {project['release']}]({image})]({base}/actions/workflows/release.{extension})"]
+    age = ""
+    if project["date"]:
+        published = datetime.fromisoformat(project["date"].replace("Z", "+00:00"))
+        days = int((datetime.now(timezone.utc) - published).total_seconds() / 86400)
+        age = "today" if days == 0 else f"{days}d ago"
+    label = f"{project['version']} · {age}" if age else project["version"]
+    image = f"https://img.shields.io/static/v1?label={quote(age, safe='')}&message={quote(project['version'], safe='')}&color={color}"
+    badges = [f"[![Release {label}: {project['release']}]({image})]({base}/actions/workflows/release.{extension})"]
     if project["language"]:
         language = project["language"]
         logo = quote(language.lower().replace(" ", ""), safe="")
