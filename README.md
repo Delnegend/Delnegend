@@ -38,6 +38,6 @@ Building software I use.
 
 | Project | Description | Badges |
 | --- | --- | --- |
-| [axum-auth-gate](https://github.com/Delnegend/axum-auth-gate) | Basic and OIDC authentication middleware for Axum routers | [![Rust](https://img.shields.io/static/v1?label=&message=Rust&color=555555&logo=rust)](https://github.com/Delnegend/axum-auth-gate) [![Release v0.1.1 · 1d ago: success](https://img.shields.io/static/v1?label=1d%20ago&message=v0.1.1&color=005a9c)](https://github.com/Delnegend/axum-auth-gate/actions/workflows/release.yml) |
+| [axum-auth-gate](https://github.com/Delnegend/axum-auth-gate) | Basic and OIDC authentication middleware for Axum routers | [![Rust](https://img.shields.io/static/v1?label=&message=Rust&color=555555&logo=rust)](https://github.com/Delnegend/axum-auth-gate) [![Release v0.1.1 · 2d ago: success](https://img.shields.io/static/v1?label=2d%20ago&message=v0.1.1&color=005a9c)](https://github.com/Delnegend/axum-auth-gate/actions/workflows/release.yml) |
 
 <!-- maintaining-projects:end -->
