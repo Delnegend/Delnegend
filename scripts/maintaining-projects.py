@@ -18,7 +18,7 @@ GROUPS = {
     "Services": [
         "dpi-proxy", "hath-server-container",
         "l4d2-server-container", "mikrotik-mcp-server", "rsRPC",
-        "segotep-digital", "terraria-server-container", "zero-g",
+        "segotep-digital", "zero-g",
     ],
     "Libraries": ["axum-auth-gate"],
 }
