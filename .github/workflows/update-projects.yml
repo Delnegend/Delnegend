@@ -15,6 +15,9 @@ concurrency:
   group: update-projects
   cancel-in-progress: false
 
+env:
+  BADGERS_CLI_VERSION: 0.2.2
+
 jobs:
   update:
     name: Refresh the tables
@@ -23,21 +26,19 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       # Building badgers-cli takes over a minute, so keep the binary between runs.
-      # Bump the version in the key and in the install step together.
       - name: Restore badgers-cli
         id: badgers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cargo/bin/badgers-cli
-          key: badgers-cli-0.2.2-${{ runner.os }}-${{ runner.arch }}
+          key: badgers-cli-${{ env.BADGERS_CLI_VERSION }}-${{ runner.os }}-${{ runner.arch }}
 
       - if: steps.badgers.outputs.cache-hit != 'true'
         uses: dtolnay/rust-toolchain@686976e191b89faba57d3206551f0f330d8cb249 # stable
 
-      # The version is pinned so a new release cannot change the badges unannounced.
       - name: Install badgers-cli
         if: steps.badgers.outputs.cache-hit != 'true'
-        run: cargo install badgers-cli --locked --version 0.2.2
+        run: cargo install badgers-cli --locked --version "$BADGERS_CLI_VERSION"
 
       - name: Put badgers-cli on PATH
         run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
