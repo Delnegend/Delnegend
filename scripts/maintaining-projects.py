@@ -222,7 +222,7 @@ def row(project):
     if project["issues"]:
         badges.append(badge(
             f"{repo}-issues.svg", "Open issues", f"{base}/issues",
-            label="issues", status=project["issues"], color=BLUE,
+            label="🐛", status=project["issues"], color=BLUE,
         ))
     if project["prs"]:
         badges.append(badge(
