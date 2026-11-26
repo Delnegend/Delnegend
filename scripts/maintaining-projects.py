@@ -14,7 +14,7 @@ import subprocess
 import sys
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import cache
 from pathlib import Path
 from urllib.parse import quote
@@ -28,8 +28,16 @@ BADGERS = os.environ.get("BADGERS_CLI", "badgers-cli")
 LOGO_URL = "https://raw.githubusercontent.com/simple-icons/simple-icons/16.38.1/icons/{slug}.svg"
 BLUE, GREY, ORANGE, RED = "005a9c", "555555", "a64000", "c62828"
 COLORS = {"success": BLUE, "unknown": GREY}
-# Simple Icons draws Go as a wide wordmark that is tiny at the default width.
-ICON_WIDTHS = {"Go": 26}
+# Corner radius in pixels at the badge's 20px height (shields.io's flat style uses 3).
+CORNER_RADIUS = 3
+# Logos that Simple Icons lacks or draws differently, kept in their own colours.
+# The Go gopher (mascot by Renee French, drawing by Takuya Ueda, CC BY 3.0) comes
+# from golang-samples/gopher-vector, pinned to a commit.
+COLOR_LOGOS = {
+    "Go": "https://raw.githubusercontent.com/golang-samples/gopher-vector/9fe99fbf17b019125bf649f8a921882b54e151a6/gopher-front.svg",
+}
+# The gopher is portrait, so it needs a narrower box than the default 13.
+ICON_WIDTHS = {"Go": 10}
 RENDERED: dict[str, str] = {}
 START = "<!-- maintaining-projects:start -->"
 END = "<!-- maintaining-projects:end -->"
@@ -93,18 +101,25 @@ def slug(text):
 
 @cache
 def logo(language):
-    """White Simple Icons logo as a data URI, or None if there is no such logo."""
-    url = LOGO_URL.format(slug=quote(language.lower().replace(" ", ""), safe=""))
+    """Logo as a data URI, or None if there is no such logo.
+
+    Simple Icons logos are drawn white; those in COLOR_LOGOS keep their colours.
+    """
+    url = COLOR_LOGOS.get(language) or LOGO_URL.format(slug=quote(language.lower().replace(" ", ""), safe=""))
     try:
         with urllib.request.urlopen(url, timeout=30) as response:
             svg = response.read().decode("utf-8")
     except (OSError, UnicodeDecodeError) as error:
         print(f"warning: no logo for {language}: {error}", file=sys.stderr)
         return None
-    if not svg.lstrip().startswith("<svg "):
+    # Drop any XML prolog and comments an editor left in front of the root element.
+    start = svg.find("<svg ")
+    if start == -1:
         print(f"warning: logo for {language} is not an SVG", file=sys.stderr)
         return None
-    svg = svg.replace("<svg ", '<svg fill="#fff" ', 1)
+    svg = svg[start:]
+    if language not in COLOR_LOGOS:
+        svg = svg.replace("<svg ", '<svg fill="#fff" ', 1)
     return "data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode()
 
 
@@ -121,6 +136,10 @@ def label_only(svg):
         raise RuntimeError("badgers-cli output changed: cannot find the status segment to remove")
     width = float(rect.group(1))
     svg = svg.replace(rect.group(0), "", 1)
+    # The rounded-corner mask spans the whole canvas, so it shrinks with it.
+    mask = re.search(r'(<rect rx="[\d.]+" ry="[\d.]+" width=")[\d.]+(")', svg)
+    if mask:
+        svg = svg.replace(mask.group(0), f"{mask.group(1)}{width:g}{mask.group(2)}", 1)
     return svg.replace(size.group(0), f'<svg width="{width / 10:g}" height="20" viewBox="0 0 {width:g} 200"', 1)
 
 
@@ -130,7 +149,7 @@ def badge(name, alt, url, *, status, label=None, color=GREY, label_color=None, i
 
     With drop_status the badge is just its label; pass status="" for it.
     """
-    args = [BADGERS, "badge", f"--status={status}", f"--color={color}"]
+    args = [BADGERS, "badge", f"--status={status}", f"--color={color}", f"--corner-radius={CORNER_RADIUS}"]
     if label_color:
         args.append(f"--label-color={label_color}")
     if label:
@@ -172,8 +191,8 @@ def row(project):
     color = COLORS.get(project["release"], ORANGE)
     age = ""
     if project["date"]:
-        published = datetime.fromisoformat(project["date"].replace("Z", "+00:00"))
-        days = int((datetime.now(timezone.utc) - published).total_seconds() / 86400)
+        published = datetime.fromisoformat(project["date"])
+        days = int((datetime.now(UTC) - published).total_seconds() / 86400)
         age = "today" if days == 0 else f"{days}d ago"
     label = f"{project['version']} · {age}" if age else project["version"]
     badges = [badge(
